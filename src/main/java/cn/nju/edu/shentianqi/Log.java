@@ -28,12 +28,12 @@ public class Log {
         printRes(0.544);
         verbose = true;
         out(233);
-        out("dgsgfksj");
+        out("hello");
         out(12 + "  ");
         err("err: 21412");
         verbose = false;
         out(233);
-        out("dgsgfksj");
+        out("hello");
         out(12 + "  ");
         err("err: 21412");
     }
