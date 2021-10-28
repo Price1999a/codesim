@@ -11,6 +11,15 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/eu.mihosoft.ext.apted/apted -->
+        <dependency>
+            <groupId>eu.mihosoft.ext.apted</groupId>
+            <artifactId>apted</artifactId>
+            <version>0.1</version>
+        </dependency>
+    </dependencies>
 
 </project>
