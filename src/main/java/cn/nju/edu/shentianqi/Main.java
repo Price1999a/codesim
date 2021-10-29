@@ -4,7 +4,7 @@ public class Main {
     private static String[] file = new String[2];
 
     public static void main(String[] args) {
-        praseArgs(args);
+        parseArgs(args);
         Log.out("main() start");
     }
 
@@ -13,7 +13,7 @@ public class Main {
      * 此时会导致程序认为参数有问题 返回1并打印usage
      * -h --help会短路掉正常流程 直接打印usage 但此时是正常退出
      */
-    private static void praseArgs(String[] args) {
+    private static void parseArgs(String[] args) {
         int fileCount = 0;
         for (String s : args) {
             switch (s) {
