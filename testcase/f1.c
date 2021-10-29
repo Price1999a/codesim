@@ -6,3 +6,8 @@ int f(int a, int b) {
 		return f(b, a % b);
 	}
 }
+
+int f1(int aa){
+    if(aa==0) return 0;
+    return aa+f1(aa-1);
+}

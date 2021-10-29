@@ -6,9 +6,8 @@ public class Main {
     public static void main(String[] args) {
         parseArgs(args);
         Log.out("main() start");
-        // TODO 找到合适的测试文件 要找几个带类的单cpp文件
         // TODO 引入树结构对比
-        // TODO 从clang的ast输出到树结构
+        // TODO 从clang的ast输出到树结构 ast->json->jsonTree --> string->apted
     }
 
     /**
