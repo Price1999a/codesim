@@ -1,6 +1,10 @@
 package cn.nju.edu.shentianqi;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 /**
  * 这个类用于调用clang
@@ -32,12 +36,38 @@ public class ClangCaller {
         //这里的src是一个合规文件名
         // clang -Xclang -ast-dump=json -fsyntax-only -pedantic ./testcase/f1.c
         // clang -Xclang -ast-dump=json -fsyntax-only -pedantic -std=c++17 ./testcase/demo.cpp
-        if (src.endsWith(".c")) {
-            //c source file
-
-        } else {
-            //cpp source file
+        String cmdForC = "clang -Xclang -ast-dump=json -fsyntax-only -pedantic ";
+        String cmdForCpp = "clang -Xclang -ast-dump=json -fsyntax-only -pedantic -std=c++17 ";
+        Process process;
+        String ret = "";
+        try {
+            if (src.endsWith(".c")) {
+                //c source file
+                Log.out("processing c source file");
+                process = Runtime.getRuntime().exec(cmdForC + src);
+            } else {
+                //cpp source file
+                Log.out("processing cpp source file");
+                process = Runtime.getRuntime().exec(cmdForCpp + src);
+            }
+            BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+            ret = sb.toString();
+        } catch (IOException e) {
+            e.printStackTrace(System.err);
+            System.exit(1);
         }
-        return "";
+        return ret;
+    }
+
+    public static void main(String[] args) {
+        Log.verbose = true;
+        String c = "./testcase/f1.c", cpp = "./testcase/union.cpp";
+        callClang2(c);
+        callClang2(cpp);
     }
 }
