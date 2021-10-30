@@ -53,6 +53,6 @@ public class Main {
 
     private static void usage() {
         Log.verbose = true; //确保可输出
-        Log.out("usage: codesim [-v|--verbose] [-h|--help] code1 code2");
+        Log.out("usage: ./codesim [-v|--verbose] [-h|--help] code1 code2");
     }
 }
