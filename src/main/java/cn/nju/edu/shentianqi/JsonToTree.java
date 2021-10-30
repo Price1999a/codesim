@@ -53,7 +53,9 @@ public class JsonToTree {
             JsonToTree jsonToTree = new JsonToTree();
             jsonToTree.createJsonNodeFromString(json[i]);
             jsonToTree.jsonReduce(file[i]);
+            Log.out("Json String no." + (i + 1) + " reduce stage done");
             ret[i] = jsonToTree.jsonNodeToAPTEDTree();
+            Log.out("Json String no." + (i + 1) + " done");
         }
         return ret;
     }

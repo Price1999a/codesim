@@ -5,7 +5,6 @@ public class Main {
 
     public static void main(String[] args) {
         parseArgs(args);
-        Log.out("main() start");
         String[] json = ClangCaller.callClang(file);
         Log.out("two files have been converted to Json Strings");
         String[] APTEDTreeStrings = JsonToTree.JsonStringToAPTEDString(json, file);

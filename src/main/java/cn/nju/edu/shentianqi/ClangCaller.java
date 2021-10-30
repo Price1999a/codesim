@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 
 /**
  * 这个类用于调用clang
@@ -66,7 +65,7 @@ public class ClangCaller {
 
     public static void main(String[] args) {
         Log.verbose = true;
-        String c = "./testcase/f1.c", cpp = "./testcase/union.cpp";
+        String c = "./testcase/f1.c", cpp = "./testcase/union1.cpp";
         callClang2(c);
         callClang2(cpp);
     }

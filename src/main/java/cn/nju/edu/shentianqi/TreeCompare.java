@@ -15,10 +15,12 @@ public class TreeCompare {
         double ret;
         BracketStringInputParser parser = new BracketStringInputParser();
         Node<StringNodeData> t1 = parser.fromString(apted1);
+        Log.out("APTED String 1 parse stage done");
         Node<StringNodeData> t2 = parser.fromString(apted2);
+        Log.out("APTED String 2 parse stage done");
         Node<StringNodeData> e = parser.fromString(empty);
         APTED<PerEditOperationStringNodeDataCostModel, StringNodeData> apted = new APTED<>
-                (new PerEditOperationStringNodeDataCostModel(1.0f, 1.0f, 0.5f));
+                (new PerEditOperationStringNodeDataCostModel(1.0f, 1.0f, 2.0f));
         ret = 1 - apted.computeEditDistance(t1, t2) /
                 (apted.computeEditDistance(e, t1) + apted.computeEditDistance(e, t2));
         return ret;
