@@ -26,6 +26,7 @@ public class TempFileManager {
         try {
             tmpDir = Files.createTempDirectory("cn.nju.edu.shentianqi.codesim");
             tmpDir.toFile().deleteOnExit();
+            Log.out(getTmpDirString() + "  created");
         } catch (IOException e) {
             e.printStackTrace(System.err);
             System.exit(1);
