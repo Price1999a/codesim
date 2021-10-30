@@ -69,6 +69,8 @@ public class JsonToTree {
     }
 
     public static void main(String[] args) {
+        Log.err("you shouldn't run JsonToTree.main() ");
+        System.exit(1);
         JsonToTree jtt = new JsonToTree(new File("./tmp/f1.json"));
         jtt.createJsonNode();
         jtt.jsonReduce("./testcase/f1.c");

@@ -33,11 +33,11 @@ public class Main {
                     System.exit(0);
                 default:
                     if (fileCount < 2) {
-                        Log.out("参数待分析文件：" + s);
+                        Log.out("参数 待分析文件：" + s);
                         file[fileCount] = s;
                         fileCount++;
                     } else {
-                        Log.err("检测到>2个文件参数！");
+                        Log.err("检测到 >2 个文件参数！");
                         usage();
                         System.exit(1);
                     }
