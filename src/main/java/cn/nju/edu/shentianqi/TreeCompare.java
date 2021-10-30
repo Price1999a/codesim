@@ -11,9 +11,16 @@ public class TreeCompare {
      * 是这样计算树相似度的
      */
     public static double computeSim(String apted1, String apted2) {
-        String empty = "{}";//有趣之处就是
-        double ret = 0;
-
+        String empty = "{}";//有趣之处就是假如有一个空的源文件 我们这一套之后生成的树就是只有一个翻译单元的ast树 对应到这里就是这个空树。
+        double ret;
+        BracketStringInputParser parser = new BracketStringInputParser();
+        Node<StringNodeData> t1 = parser.fromString(apted1);
+        Node<StringNodeData> t2 = parser.fromString(apted2);
+        Node<StringNodeData> e = parser.fromString(empty);
+        APTED<PerEditOperationStringNodeDataCostModel, StringNodeData> apted = new APTED<>
+                (new PerEditOperationStringNodeDataCostModel(1.0f, 1.0f, 0.5f));
+        ret = 1 - apted.computeEditDistance(t1, t2) /
+                (apted.computeEditDistance(e, t1) + apted.computeEditDistance(e, t2));
         return ret;
     }
 

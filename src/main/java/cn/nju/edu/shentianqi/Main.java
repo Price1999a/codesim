@@ -10,8 +10,7 @@ public class Main {
         Log.out("two files have been converted to Json Strings");
         String[] APTEDTreeStrings = JsonToTree.JsonStringToAPTEDString(json, file);
         Log.out("Json Strings have been converted to APTED tree Strings");
-        // TODO 引入树结构对比 已有简单样例
-        // TODO 从clang的ast输出到树结构 ast->json->jsonTree->string->apted 已确认此流程跑通
+        Log.printRes(TreeCompare.computeSim(APTEDTreeStrings[0], APTEDTreeStrings[1]));
     }
 
     /**

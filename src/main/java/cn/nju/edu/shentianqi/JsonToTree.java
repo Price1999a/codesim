@@ -66,20 +66,39 @@ public class JsonToTree {
         stopWords.add("valueCategory");
     }
 
-    /**
-     * 返回false说明建立失败
-     * true建立成功
-     */
-    public boolean createJsonNode() {
+    public static void main(String[] args) {
+        JsonToTree jtt = new JsonToTree(new File("./tmp/f1.json"));
+        jtt.createJsonNode();
+        jtt.jsonReduce("./testcase/f1.c");
+        String s = jtt.jsonNodeToAPTEDTree();
+
+        System.out.println(s);
+
+        ObjectMapper om = new ObjectMapper();
+        JsonNode root1 = null;
         try {
-            if (existedFile == null)
-                throw new IOException("existedFile is null");
-            jsonNode = om.readTree(existedFile);
+            root1 = om.readTree(new File("./tmp/f1.json"));
+            root1 = om.readTree(new File("./tmp/union.json"));
         } catch (IOException e) {
-            e.printStackTrace(System.err);
-            return false;
+            e.printStackTrace();
         }
-        return true;
+        assert root1 != null;
+        ArrayNode inner1 = (ArrayNode) root1.get("inner");
+        if (inner1.isArray()) {
+            for (int i = 0; i < inner1.size(); ) {
+                JsonNode jj = inner1.get(i).get("loc").get("file");
+                if (jj == null || !jj.asText().startsWith("./testcase/")) {
+                    inner1.remove(i);
+                } else {
+                    break;
+                }
+            }
+        }
+        try {
+            System.out.println(om.writeValueAsString(root1));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
 
     public JsonNode getJsonNode() {
@@ -141,44 +160,23 @@ public class JsonToTree {
      * 返回false说明建立失败
      * true建立成功
      */
-    public boolean createJsonNodeFromString(String s) {
+    public void createJsonNode() {
         try {
-            jsonNode = om.readTree(s);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return false;
+            if (existedFile == null)
+                throw new IOException("existedFile is null");
+            jsonNode = om.readTree(existedFile);
+        } catch (IOException e) {
+            e.printStackTrace(System.err);
         }
-        return true;
     }
 
-    public static void main(String[] args) {
-        JsonToTree jtt = new JsonToTree(new File("./tmp/f1.json"));
-        jtt.createJsonNode();
-        jtt.jsonReduce("./testcase/f1.c");
-        String s = jtt.jsonNodeToAPTEDTree();
-
-        ObjectMapper om = new ObjectMapper();
-        JsonNode root1 = null, root2;
+    /**
+     * 返回false说明建立失败
+     * true建立成功
+     */
+    public void createJsonNodeFromString(String s) {
         try {
-            root1 = om.readTree(new File("./tmp/f1.json"));
-            root2 = om.readTree(new File("./tmp/union.json"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        assert root1 != null;
-        ArrayNode inner1 = (ArrayNode) root1.get("inner");
-        if (inner1.isArray()) {
-            for (int i = 0; i < inner1.size(); ) {
-                JsonNode jj = inner1.get(i).get("loc").get("file");
-                if (jj == null || !jj.asText().startsWith("./testcase/")) {
-                    inner1.remove(i);
-                } else {
-                    break;
-                }
-            }
-        }
-        try {
-            System.out.println(om.writeValueAsString(root1));
+            jsonNode = om.readTree(s);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
