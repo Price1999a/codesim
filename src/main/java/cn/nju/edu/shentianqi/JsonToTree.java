@@ -30,6 +30,35 @@ public class JsonToTree {
     public JsonToTree(File f) {
         existedFile = f;
         om = new ObjectMapper();
+        initStopWords();
+    }
+
+    public JsonToTree() {
+        existedFile = null;
+        om = new ObjectMapper();
+        initStopWords();
+    }
+
+    /**
+     * {A{B{X}{Y}{F}}{C}}
+     * A
+     * / \
+     * B   C
+     * / | \
+     * X  Y Z
+     */
+    public static String[] JsonStringToAPTEDString(String[] json, String[] file) {
+        String[] ret = new String[json.length];
+        for (int i = 0; i < json.length; i++) {
+            JsonToTree jsonToTree = new JsonToTree();
+            jsonToTree.createJsonNodeFromString(json[i]);
+            jsonToTree.jsonReduce(file[i]);
+            ret[i] = jsonToTree.jsonNodeToAPTEDTree();
+        }
+        return ret;
+    }
+
+    private void initStopWords() {
         stopWords.add("id");
         stopWords.add("loc");
         stopWords.add("range");
@@ -43,6 +72,8 @@ public class JsonToTree {
      */
     public boolean createJsonNode() {
         try {
+            if (existedFile == null)
+                throw new IOException("existedFile is null");
             jsonNode = om.readTree(existedFile);
         } catch (IOException e) {
             e.printStackTrace(System.err);
@@ -107,13 +138,18 @@ public class JsonToTree {
     }
 
     /**
-     * {A{B{X}{Y}{F}}{C}}
-     * A
-     * / \
-     * B   C
-     * / | \
-     * X  Y Z
+     * 返回false说明建立失败
+     * true建立成功
      */
+    public boolean createJsonNodeFromString(String s) {
+        try {
+            jsonNode = om.readTree(s);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 
     public static void main(String[] args) {
         JsonToTree jtt = new JsonToTree(new File("./tmp/f1.json"));

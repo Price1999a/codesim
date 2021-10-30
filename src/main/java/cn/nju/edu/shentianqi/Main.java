@@ -6,10 +6,12 @@ public class Main {
     public static void main(String[] args) {
         parseArgs(args);
         Log.out("main() start");
-        ClangCaller.callClang(file);
+        String[] json = ClangCaller.callClang(file);
+        Log.out("two files have been converted to Json Strings");
+        String[] APTEDTreeStrings = JsonToTree.JsonStringToAPTEDString(json, file);
+        Log.out("Json Strings have been converted to APTED tree Strings");
         // TODO 引入树结构对比 已有简单样例
         // TODO 从clang的ast输出到树结构 ast->json->jsonTree->string->apted 已确认此流程跑通
-        // TODO clang 生成 ast json
     }
 
     /**
@@ -24,16 +26,16 @@ public class Main {
                 case "-v":
                 case "--verbose":
                     Log.verbose = true;
-                    Log.out("发现 -v|--verbose ");
+                    Log.out("参数 -v|--verbose ");
                     break;
                 case "-h":
                 case "--help":
-                    Log.out("发现 -h|--help ");
+                    Log.out("参数 -h|--help ");
                     usage();
                     System.exit(0);
                 default:
                     if (fileCount < 2) {
-                        Log.out("发现待分析文件：" + s);
+                        Log.out("参数待分析文件：" + s);
                         file[fileCount] = s;
                         fileCount++;
                     } else {

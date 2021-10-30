@@ -10,6 +10,13 @@ public class TreeCompare {
     /**
      * 是这样计算树相似度的
      */
+    public static double computeSim(String apted1, String apted2) {
+        String empty = "{}";//有趣之处就是
+        double ret = 0;
+
+        return ret;
+    }
+
     public static void main(String[] args) {
         BracketStringInputParser parser = new BracketStringInputParser();
         Node<StringNodeData> t1 = parser.fromString("{A{B{X}{Y}{F}}{C}}");
