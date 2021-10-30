@@ -8,7 +8,7 @@ public class Log {
 
     public static void printRes(double res) {
         //仅用于输出结果
-        System.out.printf("%.2f%n", res);
+        System.out.printf("%.1f%n", res * 100);
     }
 
     public static void out(Object x) {
