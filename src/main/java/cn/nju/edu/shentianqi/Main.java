@@ -6,8 +6,9 @@ public class Main {
     public static void main(String[] args) {
         parseArgs(args);
         Log.out("main() start");
-        // TODO 引入树结构对比
-        // TODO 从clang的ast输出到树结构 ast->json->jsonTree --> string->apted
+        // TODO 引入树结构对比 已有简单样例
+        // TODO 从clang的ast输出到树结构 ast->json->jsonTree->string->apted 已确认此流程跑通
+        // TODO clang 生成 ast json
     }
 
     /**

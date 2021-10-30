@@ -24,7 +24,7 @@ public class JsonToTree {
      */
     private final File existedFile;
     private JsonNode jsonNode = null;
-    private ObjectMapper om;
+    private final ObjectMapper om;
     private final Set<String> stopWords = new HashSet<>();
 
     public JsonToTree(File f) {
@@ -82,7 +82,7 @@ public class JsonToTree {
     private void jsonNodeToAPTEDTreeRecursion(JsonNode root, StringBuilder sb) {
         if (root.isValueNode()) {
             sb.append("{");
-            sb.append(root);
+            sb.append(root.asText().replaceAll("\"", ""));
             sb.append("}");
         } else if (root.isObject()) {
             Iterator<Map.Entry<String, JsonNode>> it = root.fields();
@@ -141,7 +141,6 @@ public class JsonToTree {
                 }
             }
         }
-        jsonLeaf(root1);
         try {
             System.out.println(om.writeValueAsString(root1));
         } catch (JsonProcessingException e) {
