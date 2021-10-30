@@ -9,13 +9,17 @@ import java.io.File;
  * 将程序全部编译到临时目录里面去
  */
 public class ClangCaller {
-    public static String[] callClang(String[] srcFiles, TempFileManager t) {
+    /**
+     * 返回json字符串数组
+     * 这样之后就可以直接从这些字符串创建json树了
+     */
+    public static String[] callClang(String[] srcFiles) {
         String[] ret = new String[srcFiles.length];// 记录json文件位置
         int i = 0;
         for (String src : srcFiles) {
             File f = new File(src);
             if (f.exists() && f.isFile()) {
-                ret[i++] = callClang2(src, t);
+                ret[i++] = callClang2(src);
             } else {
                 Log.err("error: " + src + " is not existed or file");
                 System.exit(1);
@@ -24,14 +28,16 @@ public class ClangCaller {
         return ret;
     }
 
-    public static String callClang2(String src, TempFileManager t) {
+    public static String callClang2(String src) {
         //这里的src是一个合规文件名
-        // ./fdsfs/fdsf.cpp -> fdsf.cpp
-        // /sdfsd/sfs.cc  -> sfs.cc
-        // 每一个文件都放在独特的uuid文件夹里，防止sx的文件名
-        String[] strings = src.split(File.pathSeparator);
-        String srcName = strings[strings.length - 1];
+        // clang -Xclang -ast-dump=json -fsyntax-only -pedantic ./testcase/f1.c
+        // clang -Xclang -ast-dump=json -fsyntax-only -pedantic -std=c++17 ./testcase/demo.cpp
+        if (src.endsWith(".c")) {
+            //c source file
 
+        } else {
+            //cpp source file
+        }
         return "";
     }
 }
