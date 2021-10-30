@@ -20,7 +20,7 @@ public class TreeCompare {
         Log.out("APTED String 2 parse stage done");
         Node<StringNodeData> e = parser.fromString(empty);
         APTED<PerEditOperationStringNodeDataCostModel, StringNodeData> apted = new APTED<>
-                (new PerEditOperationStringNodeDataCostModel(1.0f, 1.0f, 2.0f));
+                (new PerEditOperationStringNodeDataCostModel(1.0f, 1.0f, 0.25f));
         ret = 1 - apted.computeEditDistance(t1, t2) /
                 (apted.computeEditDistance(e, t1) + apted.computeEditDistance(e, t2));
         return ret;
